@@ -7,26 +7,26 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		957F101C2F294CEE0075D4A3 /* Pilz Quiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pilz Quiz.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		957F101C2F294CEE0075D4A3 /* PilzQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PilzQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		957F102E2F294CF00075D4A3 /* Exceptions for "Pilz Quiz" folder in "Pilz Quiz" target */ = {
+		957F102E2F294CF00075D4A3 /* Exceptions for "PilzQuiz" folder in "PilzQuiz" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 957F101B2F294CEE0075D4A3 /* Pilz Quiz */;
+			target = 957F101B2F294CEE0075D4A3 /* PilzQuiz */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		957F101E2F294CEE0075D4A3 /* Pilz Quiz */ = {
+		957F101E2F294CEE0075D4A3 /* PilzQuiz */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				957F102E2F294CF00075D4A3 /* Exceptions for "Pilz Quiz" folder in "Pilz Quiz" target */,
+				957F102E2F294CF00075D4A3 /* Exceptions for "PilzQuiz" folder in "PilzQuiz" target */,
 			);
-			path = "Pilz Quiz";
+			path = PilzQuiz;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +45,7 @@
 		957F10132F294CEE0075D4A3 = {
 			isa = PBXGroup;
 			children = (
-				957F101E2F294CEE0075D4A3 /* Pilz Quiz */,
+				957F101E2F294CEE0075D4A3 /* PilzQuiz */,
 				957F101D2F294CEE0075D4A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,7 +53,7 @@
 		957F101D2F294CEE0075D4A3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				957F101C2F294CEE0075D4A3 /* Pilz Quiz.app */,
+				957F101C2F294CEE0075D4A3 /* PilzQuiz.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		957F101B2F294CEE0075D4A3 /* Pilz Quiz */ = {
+		957F101B2F294CEE0075D4A3 /* PilzQuiz */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 957F102F2F294CF00075D4A3 /* Build configuration list for PBXNativeTarget "Pilz Quiz" */;
+			buildConfigurationList = 957F102F2F294CF00075D4A3 /* Build configuration list for PBXNativeTarget "PilzQuiz" */;
 			buildPhases = (
 				957F10182F294CEE0075D4A3 /* Sources */,
 				957F10192F294CEE0075D4A3 /* Frameworks */,
@@ -74,13 +74,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				957F101E2F294CEE0075D4A3 /* Pilz Quiz */,
+				957F101E2F294CEE0075D4A3 /* PilzQuiz */,
 			);
-			name = "Pilz Quiz";
+			name = PilzQuiz;
 			packageProductDependencies = (
 			);
 			productName = "Pilz Quiz";
-			productReference = 957F101C2F294CEE0075D4A3 /* Pilz Quiz.app */;
+			productReference = 957F101C2F294CEE0075D4A3 /* PilzQuiz.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 957F10172F294CEE0075D4A3 /* Build configuration list for PBXProject "Pilz Quiz" */;
+			buildConfigurationList = 957F10172F294CEE0075D4A3 /* Build configuration list for PBXProject "PilzQuiz" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				957F101B2F294CEE0075D4A3 /* Pilz Quiz */,
+				957F101B2F294CEE0075D4A3 /* PilzQuiz */,
 			);
 		};
 /* End PBXProject section */
@@ -334,7 +334,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		957F10172F294CEE0075D4A3 /* Build configuration list for PBXProject "Pilz Quiz" */ = {
+		957F10172F294CEE0075D4A3 /* Build configuration list for PBXProject "PilzQuiz" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				957F10322F294CF00075D4A3 /* Debug */,
@@ -343,7 +343,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		957F102F2F294CF00075D4A3 /* Build configuration list for PBXNativeTarget "Pilz Quiz" */ = {
+		957F102F2F294CF00075D4A3 /* Build configuration list for PBXNativeTarget "PilzQuiz" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				957F10302F294CF00075D4A3 /* Debug */,
