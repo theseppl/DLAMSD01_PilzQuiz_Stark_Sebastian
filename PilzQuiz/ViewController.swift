@@ -12,11 +12,17 @@ enum Mode {
     case quiz
 }
 
+enum State {
+    case question
+    case answer
+}
+
 class ViewController: UIViewController {
     
     let elementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
     var currentElementIndex = 0
     var mode: Mode = .flashCard
+    var state: State = .question
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
@@ -25,7 +31,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func showAnswer(_ sender: Any) {
-        answerLabel.text = elementList[currentElementIndex]
+        state = .answer
+        updateFlashCardUI()
     }
     
     @IBAction func next(_ sender: Any) {
@@ -33,23 +40,27 @@ class ViewController: UIViewController {
         if currentElementIndex >= elementList.count {
             currentElementIndex = 0
         }
-        updateElement()
+        state = .question
+        updateFlashCardUI()
     }
     
-    
-    func updateElement() {
+    //Updated die UI im FlashCard-Modus
+    func updateFlashCardUI() {
         let elementName = elementList[currentElementIndex]
         let image = UIImage(named: elementName)
         imageView.image = image
-        answerLabel.text = "?"
+        
+        if state == .answer {
+            answerLabel.text = elementName
+        } else {
+            answerLabel.text = "?"
+        }
     }
     
     override func viewDidLoad() {
-        updateElement()
+        updateFlashCardUI()
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
 }
 
