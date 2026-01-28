@@ -15,6 +15,14 @@ class ViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
     
+    @IBAction func showAnswer(_ sender: Any) {
+        answerLabel.text = elementList[currentElementIndex]
+    }
+    
+    @IBAction func next(_ sender: Any) {
+    }
+    
+    
     func updateElement() {
         let elementName = elementList[currentElementIndex]
         let image = UIImage(named: elementName)
