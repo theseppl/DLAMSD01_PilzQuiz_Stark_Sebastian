@@ -17,12 +17,14 @@ enum State {
     case answer
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     let elementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
     var currentElementIndex = 0
     var mode: Mode = .flashCard
     var state: State = .question
+    var answerIsCorrect = false
+    var correctAnswerCount = 0
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
@@ -43,6 +45,27 @@ class ViewController: UIViewController {
         state = .question
         updateUI()
     }
+    
+    //Funktion wird durch Return-Button aufgerufen
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //Erhält den Text aus dem Textfeld
+        let textFieldContents = textField.text!
+        
+        // Ermittelt ob der User korrekt geantwortet hat
+        // Updated den Quiz-Status
+        if textFieldContents.lowercased() == elementList[currentElementIndex].lowercased(){
+            answerIsCorrect = true
+            correctAnswerCount += 1
+        } else {
+            answerIsCorrect = false
+        }
+        
+        // App soll nun die Antwort anzeigen
+        state = .answer
+        updateUI()
+        return true
+    }
+    
     
     // Single Point of Entry für alle UI-Anpassungen
     // Nur sie darf andere UI-Anpassungsmethoden aufrufen
@@ -70,7 +93,16 @@ class ViewController: UIViewController {
     
     //Updated die UI im Quiz-Modus
     func updateQuizUI() {
-        
+        switch state {
+        case .question:
+            answerLabel.text = ""
+        case .answer:
+            if answerIsCorrect {
+                answerLabel.text = "Richtig"
+            } else {
+                answerLabel.text = "❌"
+            }
+        }
     }
     
     override func viewDidLoad() {
