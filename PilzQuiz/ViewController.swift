@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     
     @IBAction func showAnswer(_ sender: Any) {
         state = .answer
-        updateFlashCardUI()
+        updateUI()
     }
     
     @IBAction func next(_ sender: Any) {
@@ -41,7 +41,18 @@ class ViewController: UIViewController {
             currentElementIndex = 0
         }
         state = .question
-        updateFlashCardUI()
+        updateUI()
+    }
+    
+    // Single Point of Entry für alle UI-Anpassungen
+    // Nur sie darf andere UI-Anpassungsmethoden aufrufen
+    func updateUI() {
+        switch mode {
+        case .flashCard:
+            updateFlashCardUI()
+        case .quiz:
+            updateQuizUI()
+        }
     }
     
     //Updated die UI im FlashCard-Modus
@@ -57,8 +68,13 @@ class ViewController: UIViewController {
         }
     }
     
+    //Updated die UI im Quiz-Modus
+    func updateQuizUI() {
+        
+    }
+    
     override func viewDidLoad() {
-        updateFlashCardUI()
+        updateUI()
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
