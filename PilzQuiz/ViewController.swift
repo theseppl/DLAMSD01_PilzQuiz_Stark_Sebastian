@@ -21,7 +21,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     let elementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
     var currentElementIndex = 0
-    var mode: Mode = .flashCard
+    
+    // Das ist eine Property mit eine Property-Observer
+    // Jedes mal, wenn sich der Status der Property ändert,
+    // wird der didSet-Block abgespielt.
+    var mode: Mode = .flashCard {
+        didSet {
+            updateUI()
+        }
+    }
+        
     var state: State = .question
     var answerIsCorrect = false
     var correctAnswerCount = 0
@@ -46,6 +55,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         updateUI()
     }
     
+    @IBAction func switchModes(_ sender: Any) {
+        if modeSelector.selectedSegmentIndex == 0 {
+            mode = .flashCard
+        } else {
+            mode = .quiz
+        }
+    }
+    
     //Funktion wird durch Return-Button aufgerufen
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //Erhält den Text aus dem Textfeld
@@ -60,6 +77,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
             answerIsCorrect = false
         }
         
+        if answerIsCorrect {
+            print("Genau")
+        } else {
+            print("falsch")
+        }
+        
         // App soll nun die Antwort anzeigen
         state = .answer
         updateUI()
@@ -70,20 +93,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // Single Point of Entry für alle UI-Anpassungen
     // Nur sie darf andere UI-Anpassungsmethoden aufrufen
     func updateUI() {
-        switch mode {
-        case .flashCard:
-            updateFlashCardUI()
-        case .quiz:
-            updateQuizUI()
-        }
-    }
-    
-    //Updated die UI im FlashCard-Modus
-    func updateFlashCardUI() {
         let elementName = elementList[currentElementIndex]
         let image = UIImage(named: elementName)
         imageView.image = image
         
+        switch mode {
+        case .flashCard:
+            updateFlashCardUI(elementName: elementName)
+        case .quiz:
+            updateQuizUI(elementName: elementName)
+        }
+    }
+    
+    //Updated die UI im FlashCard-Modus
+    func updateFlashCardUI(elementName: String) {
         if state == .answer {
             answerLabel.text = elementName
         } else {
@@ -92,7 +115,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //Updated die UI im Quiz-Modus
-    func updateQuizUI() {
+    //Parameter eigentlich nicht in Nutzung
+    func updateQuizUI(elementName: String) {
         switch state {
         case .question:
             answerLabel.text = ""
