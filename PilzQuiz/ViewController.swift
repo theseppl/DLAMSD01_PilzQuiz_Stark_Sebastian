@@ -107,6 +107,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //Updated die UI im FlashCard-Modus
     func updateFlashCardUI(elementName: String) {
+        // Textfeld und Tastatur ausblenden
+        textField.isHidden = true
+        textField.resignFirstResponder()
+        
         if state == .answer {
             answerLabel.text = elementName
         } else {
@@ -117,6 +121,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //Updated die UI im Quiz-Modus
     //Parameter eigentlich nicht in Nutzung
     func updateQuizUI(elementName: String) {
+        //Textfeld und Tastatur
+        textField.isHidden = false
+        switch state {
+        case .question:
+            textField.text = ""
+            textField.becomeFirstResponder()
+        //Beim Umschalten auf FlashCards verschwindet Textfeld
+        case .answer:
+            textField.resignFirstResponder()
+        }
+        
+        // Antwortlabel
         switch state {
         case .question:
             answerLabel.text = ""
