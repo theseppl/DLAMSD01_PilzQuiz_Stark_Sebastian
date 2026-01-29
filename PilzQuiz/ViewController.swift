@@ -15,6 +15,7 @@ enum Mode {
 enum State {
     case question
     case answer
+    case score
 }
 
 class ViewController: UIViewController, UITextFieldDelegate {
@@ -50,6 +51,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         currentElementIndex += 1
         if currentElementIndex >= elementList.count {
             currentElementIndex = 0
+            // Wenn Modus Quiz ist und das Ende erreicht,
+            // wird der Status auf Score gesetzt und die Funktion verlassen.
+            if mode == .quiz {
+                state = .score
+                updateUI()
+                return
+            }
         }
         state = .question
         updateUI()
@@ -130,6 +138,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //Beim Umschalten auf FlashCards verschwindet Textfeld
         case .answer:
             textField.resignFirstResponder()
+        case .score:
+            textField.isHidden = true
+            textField.resignFirstResponder()
         }
         
         // Antwortlabel
@@ -142,6 +153,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             } else {
                 answerLabel.text = "❌"
             }
+        case .score:
+            answerLabel.text = ""
+            print("Deine Punktzahl ist \(correctAnswerCount) von \(elementList.count)")
         }
     }
     
