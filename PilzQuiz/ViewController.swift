@@ -28,6 +28,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // wird der didSet-Block abgespielt.
     var mode: Mode = .flashCard {
         didSet {
+            switch mode {
+            case .flashCard:
+                setupFlashCards()
+            case .quiz:
+                setupQuiz()
+            }
             updateUI()
         }
     }
@@ -62,13 +68,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
         state = .question
         updateUI()
     }
-    
+    // Funktion welche durch User-Eingabe am Selector den Modus ändert
     @IBAction func switchModes(_ sender: Any) {
         if modeSelector.selectedSegmentIndex == 0 {
             mode = .flashCard
         } else {
             mode = .quiz
         }
+    }
+    
+    //Startet eine neue Flash-Card-Session
+    func setupFlashCards() {
+        state = .question
+        currentElementIndex = 0
+    }
+    
+    //Startet eine neue Quiz-Session
+    func setupQuiz() {
+        state = .question
+        currentElementIndex = 0
+        correctAnswerCount = 0
+        answerIsCorrect = false
     }
     
     // Zeigt das modale Pop-up zur Anzeige der Punktzahl
@@ -139,6 +159,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.isHidden = true
         textField.resignFirstResponder()
         
+        //Kennzeichen zur automatischen Anpassung der SegmentControl (nicht User-Eingabe)
+        modeSelector.selectedSegmentIndex = 0
+        
         if state == .answer {
             answerLabel.text = elementName
         } else {
@@ -151,6 +174,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func updateQuizUI(elementName: String) {
         //Textfeld und Tastatur
         textField.isHidden = false
+        
+        //Kennzeichen zur automatischen Anpassung der SegmentControl (nicht User-Eingabe)
+        modeSelector.selectedSegmentIndex = 1
+        
         switch state {
         case .question:
             textField.text = ""
