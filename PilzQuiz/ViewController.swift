@@ -20,7 +20,8 @@ enum State {
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    let elementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
+    //Array als Variable um Zufallsgenerator zu ermöglichen
+    var elementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
     var currentElementIndex = 0
     
     // Das ist eine Property mit eine Property-Observer
@@ -87,6 +88,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //Startet eine neue Quiz-Session
     func setupQuiz() {
         state = .question
+        elementList = elementList.shuffled()
         currentElementIndex = 0
         correctAnswerCount = 0
         answerIsCorrect = false
@@ -233,7 +235,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if answerIsCorrect {
                 answerLabel.text = "Richtig"
             } else {
-                answerLabel.text = "❌"
+                answerLabel.text = "❌\nCorrect Answer: " + elementName
             }
         case .score:
             answerLabel.text = ""
