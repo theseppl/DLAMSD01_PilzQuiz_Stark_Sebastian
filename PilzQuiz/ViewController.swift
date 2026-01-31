@@ -20,8 +20,9 @@ enum State {
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
+    let fixedElementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
     //Array als Variable um Zufallsgenerator zu ermöglichen
-    var elementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
+    var elementList: [String] = []
     var currentElementIndex = 0
     
     // Das ist eine Property mit eine Property-Observer
@@ -81,6 +82,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //Startet eine neue Flash-Card-Session
     func setupFlashCards() {
+        elementList = fixedElementList
         state = .question
         currentElementIndex = 0
     }
@@ -88,7 +90,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //Startet eine neue Quiz-Session
     func setupQuiz() {
         state = .question
-        elementList = elementList.shuffled()
+        // Würfelt elementList durcheinander
+        elementList = fixedElementList.shuffled()
         currentElementIndex = 0
         correctAnswerCount = 0
         answerIsCorrect = false
@@ -247,9 +250,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidLoad() {
-        updateUI()
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        mode = .flashCard
     }
 }
 
