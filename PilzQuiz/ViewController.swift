@@ -46,7 +46,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var answerLabel: UILabel!
     @IBOutlet weak var modeSelector: UISegmentedControl!
     @IBOutlet weak var textField: UITextField!
-    
+    @IBOutlet weak var showAnswerButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
     
     @IBAction func showAnswer(_ sender: Any) {
         state = .answer
@@ -159,6 +160,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.isHidden = true
         textField.resignFirstResponder()
         
+        //Buttons
+        showAnswerButton.isHidden = false
+        nextButton.isEnabled = true
+        nextButton.setTitle("Next Element", for: .normal)
+        
         //Kennzeichen zur automatischen Anpassung der SegmentControl (nicht User-Eingabe)
         modeSelector.selectedSegmentIndex = 0
         
@@ -174,6 +180,35 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func updateQuizUI(elementName: String) {
         //Textfeld und Tastatur
         textField.isHidden = false
+        switch state {
+        case .question:
+            textField.isEnabled = true
+            textField.text = ""
+            textField.becomeFirstResponder()
+        case .answer:
+            textField.isEnabled = false
+            textField.resignFirstResponder()
+        case .score:
+            textField.isHidden = true
+            textField.resignFirstResponder()
+        }
+        
+        //Buttons
+        showAnswerButton.isHidden = true
+        if currentElementIndex == elementList.count - 1 {
+            nextButton.setTitle("Show Score", for: .normal)
+        } else {
+            nextButton.setTitle("Next Question", for: .normal)
+        }
+        
+        switch state {
+        case .question:
+            nextButton.isEnabled = false
+        case .answer:
+            nextButton.isEnabled = true
+        case .score:
+            nextButton.isEnabled = false
+        }
         
         //Kennzeichen zur automatischen Anpassung der SegmentControl (nicht User-Eingabe)
         modeSelector.selectedSegmentIndex = 1
