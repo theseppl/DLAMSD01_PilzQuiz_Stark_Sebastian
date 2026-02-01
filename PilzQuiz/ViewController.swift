@@ -20,7 +20,8 @@ enum State {
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    let fixedElementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
+   // let fixedElementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
+    let fixedElementList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
     //Array als Variable um Zufallsgenerator zu ermöglichen
     var elementList: [String] = []
     var currentElementIndex = 0
