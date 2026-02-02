@@ -18,7 +18,7 @@ enum State {
     case score
 }
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class FlashCardViewController: UIViewController, UITextFieldDelegate {
     
    // let fixedElementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
     let fixedElementList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
@@ -253,6 +253,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mode = .flashCard
+        imageView.layer.cornerRadius = 16 // oder ein Wert, der gut aussieht
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
     }
 }
 
