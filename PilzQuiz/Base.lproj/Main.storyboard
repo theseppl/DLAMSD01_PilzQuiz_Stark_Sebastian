@@ -114,24 +114,36 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <connections>
+                                    <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="uTS-ME-wo1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ei8-3r-btJ">
                                 <rect key="frame" x="122" y="521" width="156" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <connections>
+                                    <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="CF6-Ri-Sly"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGf-K4-M0d">
                                 <rect key="frame" x="122" y="607" width="156" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <connections>
+                                    <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="Jw3-Rm-POf"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeK-bY-D3K">
-                                <rect key="frame" x="123" y="564" width="156" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpn-HK-OhZ">
+                                <rect key="frame" x="122" y="564" width="156" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <connections>
+                                    <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="5gU-mP-5yG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zjc-87-kVI"/>
@@ -139,6 +151,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="w7C-XL-Znt"/>
                     <connections>
+                        <outlet property="answerButton1" destination="I5P-ft-bMW" id="rZU-kr-Lh1"/>
+                        <outlet property="answerButton2" destination="ei8-3r-btJ" id="kzM-Fo-K1X"/>
+                        <outlet property="answerButton3" destination="mpn-HK-OhZ" id="FjL-SE-w3x"/>
+                        <outlet property="answerButton4" destination="YGf-K4-M0d" id="bH7-fU-Rud"/>
                         <outlet property="imageView" destination="c0f-RF-XPT" id="6ck-TF-KN4"/>
                     </connections>
                 </viewController>
