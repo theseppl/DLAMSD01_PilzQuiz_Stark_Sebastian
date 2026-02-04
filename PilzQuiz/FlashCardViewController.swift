@@ -7,11 +7,13 @@
 
 import UIKit
 
+/*
 enum Mode {
     case flashCard
     case quiz
 }
-
+*/
+ 
 enum State {
     case question
     case answer
@@ -19,8 +21,7 @@ enum State {
 }
 
 class FlashCardViewController: UIViewController, UITextFieldDelegate {
-    
-   // let fixedElementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
+
     let fixedElementList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
     //Array als Variable um Zufallsgenerator zu ermöglichen
     var elementList: [String] = []
@@ -29,6 +30,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     // Das ist eine Property mit eine Property-Observer
     // Jedes mal, wenn sich der Status der Property ändert,
     // wird der didSet-Block abgespielt.
+/*
     var mode: Mode = .flashCard {
         didSet {
             switch mode {
@@ -40,15 +42,13 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
             updateUI()
         }
     }
-        
+ */
     var state: State = .question
     var answerIsCorrect = false
     var correctAnswerCount = 0
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
-    @IBOutlet weak var modeSelector: UISegmentedControl!
-    @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var showAnswerButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     
@@ -63,22 +63,17 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
             currentElementIndex = 0
             // Wenn Modus Quiz ist und das Ende erreicht,
             // wird der Status auf Score gesetzt und die Funktion verlassen.
+            /*
             if mode == .quiz {
                 state = .score
                 updateUI()
                 return
             }
+             */
         }
+        
         state = .question
         updateUI()
-    }
-    // Funktion welche durch User-Eingabe am Selector den Modus ändert
-    @IBAction func switchModes(_ sender: Any) {
-        if modeSelector.selectedSegmentIndex == 0 {
-            mode = .flashCard
-        } else {
-            mode = .quiz
-        }
     }
     
     //Startet eine neue Flash-Card-Session
@@ -105,7 +100,12 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         
         //Beschreibt den Button des Pop-ups (für Aktion)
         //Callback: Er ruft die Methode scoreAlertDismissed(_:) auf
+        
+        /*
         let dismissAction = UIAlertAction(title: "OK", style: .default, handler: scoreAlertDismissed(_:))
+        */
+        
+        let dismissAction = UIAlertAction(title: "OK", style: .default)
         
         //Die Aktion wird dem Action-Controller übergeben
         alert.addAction(dismissAction)
@@ -113,11 +113,14 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         // Meldung wird präsentiert
         present(alert, animated: true, completion: nil)
     }
-    
+  
+    /*
     func scoreAlertDismissed(_ action: UIAlertAction) {
         mode = .flashCard
     }
+    */
     
+    /*
     //Funktion wird durch Return-Button aufgerufen
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //Erhält den Text aus dem Textfeld
@@ -143,7 +146,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         updateUI()
         return true
     }
-    
+    */
     
     // Single Point of Entry für alle UI-Anpassungen
     // Nur sie darf andere UI-Anpassungsmethoden aufrufen
@@ -152,14 +155,34 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         let image = UIImage(named: elementName)
         imageView.image = image
         
+        /*
+        // Textfeld und Tastatur ausblenden
+        textField.isHidden = true
+        textField.resignFirstResponder()
+        */
+         
+        //Buttons
+        showAnswerButton.isHidden = false
+        nextButton.isEnabled = true
+        nextButton.setTitle("Next Element", for: .normal)
+
+        if state == .answer {
+            answerLabel.text = elementName
+        } else {
+            answerLabel.text = "?"
+        }
+        
+        /*
         switch mode {
         case .flashCard:
             updateFlashCardUI(elementName: elementName)
         case .quiz:
             updateQuizUI(elementName: elementName)
         }
+         */
     }
     
+    /*
     //Updated die UI im FlashCard-Modus
     func updateFlashCardUI(elementName: String) {
         // Textfeld und Tastatur ausblenden
@@ -170,10 +193,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         showAnswerButton.isHidden = false
         nextButton.isEnabled = true
         nextButton.setTitle("Next Element", for: .normal)
-        
-        //Kennzeichen zur automatischen Anpassung der SegmentControl (nicht User-Eingabe)
-        modeSelector.selectedSegmentIndex = 0
-        
+
         if state == .answer {
             answerLabel.text = elementName
         } else {
@@ -215,22 +235,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         case .score:
             nextButton.isEnabled = false
         }
-        
-        //Kennzeichen zur automatischen Anpassung der SegmentControl (nicht User-Eingabe)
-        modeSelector.selectedSegmentIndex = 1
-        
-        switch state {
-        case .question:
-            textField.text = ""
-            textField.becomeFirstResponder()
-        //Beim Umschalten auf FlashCards verschwindet Textfeld
-        case .answer:
-            textField.resignFirstResponder()
-        case .score:
-            textField.isHidden = true
-            textField.resignFirstResponder()
-        }
-        
+
         // Antwortlabel
         switch state {
         case .question:
@@ -249,13 +254,15 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
             displayScoreAlert()
         }
     }
-    
+  */
     override func viewDidLoad() {
         super.viewDidLoad()
-        mode = .flashCard
-        imageView.layer.cornerRadius = 16 // oder ein Wert, der gut aussieht
+//        mode = .flashCard
+        imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        setupFlashCards()
+        updateUI()
     }
 }
 
