@@ -18,16 +18,16 @@ class QuizViewController: UIViewController {
     var answerButtonArray: [UIButton] = []
     var fourButtonTitles: [String] = []
     
-    let fixedElementList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
-    var elementList: [String] = []
-    var currentElementIndex = 0
+    let fixedMushroomList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
+    var variableMushroomList: [String] = []
+    var currentMushroomIndex = 0
     var answerIsCorrect = false
     var correctAnswerCount = 0
     
     @IBAction func answerButtonTapped(_ sender: UIButton) {
         let title = sender.title(for: .normal)
 
-        let correctAnswer = elementList[currentElementIndex]
+        let correctAnswer = variableMushroomList[currentMushroomIndex]
 
         if title == correctAnswer {
             answerIsCorrect = true
@@ -39,10 +39,10 @@ class QuizViewController: UIViewController {
         }
 
         // Nächste Frage laden
-        currentElementIndex += 1
+        currentMushroomIndex += 1
 
-        if currentElementIndex >= elementList.count {
-            currentElementIndex = 0
+        if currentMushroomIndex >= variableMushroomList.count {
+            currentMushroomIndex = 0
             displayScoreAlert()
         }
 
@@ -50,21 +50,21 @@ class QuizViewController: UIViewController {
     }
 
     func setupQuiz() {
-        // Würfelt elementList durcheinander
-        elementList = fixedElementList.shuffled()
-        currentElementIndex = 0
+        // Würfelt variableMushroomList durcheinander
+        variableMushroomList = fixedMushroomList.shuffled()
+        currentMushroomIndex = 0
         correctAnswerCount = 0
         answerIsCorrect = false
     }
     
     func updateUI() {
-        let elementName = elementList[currentElementIndex]
-        let image = UIImage(named: elementName)
+        let mushroomName = variableMushroomList[currentMushroomIndex]
+        let image = UIImage(named: mushroomName)
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.image = image
-        assignAnswers(correctAnswer: elementName)
+        assignAnswers(correctAnswer: mushroomName)
     }
 
     func assignAnswers(correctAnswer: String) {
@@ -72,9 +72,9 @@ class QuizViewController: UIViewController {
         // Falsche Antworten sammeln
         var wrongAnswers: [String] = []
 
-        for element in fixedElementList {
-            if element != correctAnswer {
-                wrongAnswers.append(element)
+        for mushroom in fixedMushroomList {
+            if mushroom != correctAnswer {
+                wrongAnswers.append(mushroom)
             }
         }
 
@@ -113,7 +113,7 @@ class QuizViewController: UIViewController {
     // Zeigt das modale Pop-up zur Anzeige der Punktzahl
     func displayScoreAlert() {
         //Meldung wird erzeugt
-        let alert = UIAlertController(title: "Quiz Punktzahl", message: "Deine Punktzahl ist \(correctAnswerCount) von \(elementList.count).", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Quiz Punktzahl", message: "Deine Punktzahl ist \(correctAnswerCount) von \(variableMushroomList.count).", preferredStyle: .alert)
         
         //Beschreibt den Button des Pop-ups (für Aktion)
         //Callback: Er ruft die Methode scoreAlertDismissed(_:) auf

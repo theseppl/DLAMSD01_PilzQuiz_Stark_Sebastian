@@ -15,10 +15,10 @@ enum State {
 
 class FlashCardViewController: UIViewController, UITextFieldDelegate {
 
-    let fixedElementList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
+    let fixedMushroomList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
     //Array als Variable um Zufallsgenerator zu ermöglichen
-    var elementList: [String] = []
-    var currentElementIndex = 0
+    var variableMushroomList: [String] = []
+    var currentMushroomIndex = 0
 
     var state: State = .question
     var answerIsCorrect = false
@@ -35,9 +35,9 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func next(_ sender: Any) {
-        currentElementIndex += 1
-        if currentElementIndex >= elementList.count {
-            currentElementIndex = 0
+        currentMushroomIndex += 1
+        if currentMushroomIndex >= variableMushroomList.count {
+            currentMushroomIndex = 0
         }
         
         state = .question
@@ -46,25 +46,25 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     
     //Startet eine neue Flash-Card-Session
     func setupFlashCards() {
-        elementList = fixedElementList
+        variableMushroomList = fixedMushroomList
         state = .question
-        currentElementIndex = 0
+        currentMushroomIndex = 0
     }
 
     // Single Point of Entry für alle UI-Anpassungen
     // Nur sie darf andere UI-Anpassungsmethoden aufrufen
     func updateUI() {
-        let elementName = elementList[currentElementIndex]
-        let image = UIImage(named: elementName)
+        let mushroomName = variableMushroomList[currentMushroomIndex]
+        let image = UIImage(named: mushroomName)
         imageView.image = image
          
         //Buttons
         showAnswerButton.isHidden = false
         nextButton.isEnabled = true
-        nextButton.setTitle("Next Element", for: .normal)
+        nextButton.setTitle("Nächster Pilz", for: .normal)
 
         if state == .answer {
-            answerLabel.text = elementName
+            answerLabel.text = mushroomName
         } else {
             answerLabel.text = "?"
         }
@@ -72,7 +72,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     
     /*
     //Updated die UI im FlashCard-Modus
-    func updateFlashCardUI(elementName: String) {
+    func updateFlashCardUI(mushroomName: String) {
         // Textfeld und Tastatur ausblenden
         textField.isHidden = true
         textField.resignFirstResponder()
@@ -83,7 +83,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         nextButton.setTitle("Next Element", for: .normal)
 
         if state == .answer {
-            answerLabel.text = elementName
+            answerLabel.text = mushroomName
         } else {
             answerLabel.text = "?"
         }
@@ -91,7 +91,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     
     //Updated die UI im Quiz-Modus
     //Parameter eigentlich nicht in Nutzung
-    func updateQuizUI(elementName: String) {
+    func updateQuizUI(mushroomName: String) {
         //Textfeld und Tastatur
         textField.isHidden = false
         switch state {
@@ -109,7 +109,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         
         //Buttons
         showAnswerButton.isHidden = true
-        if currentElementIndex == elementList.count - 1 {
+        if currentMushroomIndex == fixedMushroomList.count - 1 {
             nextButton.setTitle("Show Score", for: .normal)
         } else {
             nextButton.setTitle("Next Question", for: .normal)
@@ -132,7 +132,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
             if answerIsCorrect {
                 answerLabel.text = "Richtig"
             } else {
-                answerLabel.text = "❌\nCorrect Answer: " + elementName
+                answerLabel.text = "❌\nCorrect Answer: " + mushroomName
             }
         case .score:
             answerLabel.text = ""
