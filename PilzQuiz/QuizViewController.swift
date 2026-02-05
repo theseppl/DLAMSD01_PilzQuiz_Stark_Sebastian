@@ -15,11 +15,8 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var answerButton3: UIButton!
     @IBOutlet weak var answerButton4: UIButton!
     
-
-    
     var answerButtonArray: [UIButton] = []
     var fourButtonTitles: [String] = []
-    
     
     let fixedElementList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
     var elementList: [String] = []
@@ -27,9 +24,8 @@ class QuizViewController: UIViewController {
     var answerIsCorrect = false
     var correctAnswerCount = 0
     
-    
     @IBAction func answerButtonTapped(_ sender: UIButton) {
-        guard let title = sender.title(for: .normal) else { return }
+        let title = sender.title(for: .normal)
 
         let correctAnswer = elementList[currentElementIndex]
 
@@ -53,17 +49,9 @@ class QuizViewController: UIViewController {
         updateUI()
     }
 
-    
-    
-    
-    
-    
     func setupQuiz() {
         // Würfelt elementList durcheinander
         elementList = fixedElementList.shuffled()
-        
-        
-        
         currentElementIndex = 0
         correctAnswerCount = 0
         answerIsCorrect = false
@@ -71,46 +59,64 @@ class QuizViewController: UIViewController {
     
     func updateUI() {
         let elementName = elementList[currentElementIndex]
-        
         let image = UIImage(named: elementName)
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.image = image
-        
         assignAnswers(correctAnswer: elementName)
     }
-    
+
     func assignAnswers(correctAnswer: String) {
 
-        // 1. Alle falschen Antworten bestimmen
-        let wrongAnswers = fixedElementList
-            .filter { $0 != correctAnswer }
-            .shuffled()
-            .prefix(3)
+        // Falsche Antworten sammeln
+        var wrongAnswers: [String] = []
 
-        // 2. Richtige + falsche Antworten zusammenführen
-        let allFourAnswers = ([correctAnswer] + wrongAnswers).shuffled()
+        for element in fixedElementList {
+            if element != correctAnswer {
+                wrongAnswers.append(element)
+            }
+        }
 
-        // 3. Buttons mit Titeln befüllen
-        for (index, button) in answerButtonArray.enumerated() {
-            button.setTitle(allFourAnswers[index], for: .normal)
+        // wrongAnswers mischen
+        for i in 0..<(wrongAnswers.count - 1) {
+            let j = Int.random(in: i..<wrongAnswers.count)
+            wrongAnswers.swapAt(i, j)
+        }
+
+        // Die ersten 3 falschen Antworten nehmen
+        var selectedWrongAnswers: [String] = []
+        for i in 0..<3 {
+            selectedWrongAnswers.append(wrongAnswers[i])
+        }
+
+        // Richtige + falsche Antworten zusammenführen
+        var allFourAnswers: [String] = []
+        allFourAnswers.append(correctAnswer)
+
+        for wrong in selectedWrongAnswers {
+            allFourAnswers.append(wrong)
+        }
+
+        // allFourAnswers mischen
+        for i in 0..<(allFourAnswers.count - 1) {
+            let j = Int.random(in: i..<allFourAnswers.count)
+            allFourAnswers.swapAt(i, j)
+        }
+
+        // Buttons befüllen
+        for i in 0..<answerButtonArray.count {
+            answerButtonArray[i].setTitle(allFourAnswers[i], for: .normal)
         }
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
- //       let fixedAnswerButtonArray: [UIButton] = [answerButton1, answerButton2, answerButton3, answerButton4]
-        
         answerButtonArray = [answerButton1, answerButton2, answerButton3, answerButton4]
         setupQuiz()
         updateUI()
-
-        // Do any additional setup after loading the view.
     }
     
-
     /*
     // MARK: - Navigation
 
