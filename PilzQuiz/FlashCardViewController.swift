@@ -6,13 +6,6 @@
 //
 
 import UIKit
-
-/*
-enum Mode {
-    case flashCard
-    case quiz
-}
-*/
  
 enum State {
     case question
@@ -26,23 +19,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     //Array als Variable um Zufallsgenerator zu ermöglichen
     var elementList: [String] = []
     var currentElementIndex = 0
-    
-    // Das ist eine Property mit eine Property-Observer
-    // Jedes mal, wenn sich der Status der Property ändert,
-    // wird der didSet-Block abgespielt.
-/*
-    var mode: Mode = .flashCard {
-        didSet {
-            switch mode {
-            case .flashCard:
-                setupFlashCards()
-            case .quiz:
-                setupQuiz()
-            }
-            updateUI()
-        }
-    }
- */
+
     var state: State = .question
     var answerIsCorrect = false
     var correctAnswerCount = 0
@@ -61,15 +38,6 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         currentElementIndex += 1
         if currentElementIndex >= elementList.count {
             currentElementIndex = 0
-            // Wenn Modus Quiz ist und das Ende erreicht,
-            // wird der Status auf Score gesetzt und die Funktion verlassen.
-            /*
-            if mode == .quiz {
-                state = .score
-                updateUI()
-                return
-            }
-             */
         }
         
         state = .question
@@ -82,84 +50,13 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         state = .question
         currentElementIndex = 0
     }
-    
-    //Startet eine neue Quiz-Session
-    func setupQuiz() {
-        state = .question
-        // Würfelt elementList durcheinander
-        elementList = fixedElementList.shuffled()
-        currentElementIndex = 0
-        correctAnswerCount = 0
-        answerIsCorrect = false
-    }
-    
-    // Zeigt das modale Pop-up zur Anzeige der Punktzahl
-    func displayScoreAlert() {
-        //Meldung wird erzeugt
-        let alert = UIAlertController(title: "Quiz Punktzahl", message: "Deine Punktzahl ist \(correctAnswerCount) von \(elementList.count).", preferredStyle: .alert)
-        
-        //Beschreibt den Button des Pop-ups (für Aktion)
-        //Callback: Er ruft die Methode scoreAlertDismissed(_:) auf
-        
-        /*
-        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: scoreAlertDismissed(_:))
-        */
-        
-        let dismissAction = UIAlertAction(title: "OK", style: .default)
-        
-        //Die Aktion wird dem Action-Controller übergeben
-        alert.addAction(dismissAction)
-        
-        // Meldung wird präsentiert
-        present(alert, animated: true, completion: nil)
-    }
-  
-    /*
-    func scoreAlertDismissed(_ action: UIAlertAction) {
-        mode = .flashCard
-    }
-    */
-    
-    /*
-    //Funktion wird durch Return-Button aufgerufen
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //Erhält den Text aus dem Textfeld
-        let textFieldContents = textField.text!
-        
-        // Ermittelt ob der User korrekt geantwortet hat
-        // Updated den Quiz-Status
-        if textFieldContents.lowercased() == elementList[currentElementIndex].lowercased(){
-            answerIsCorrect = true
-            correctAnswerCount += 1
-        } else {
-            answerIsCorrect = false
-        }
-        
-        if answerIsCorrect {
-            print("Genau")
-        } else {
-            print("falsch")
-        }
-        
-        // App soll nun die Antwort anzeigen
-        state = .answer
-        updateUI()
-        return true
-    }
-    */
-    
+
     // Single Point of Entry für alle UI-Anpassungen
     // Nur sie darf andere UI-Anpassungsmethoden aufrufen
     func updateUI() {
         let elementName = elementList[currentElementIndex]
         let image = UIImage(named: elementName)
         imageView.image = image
-        
-        /*
-        // Textfeld und Tastatur ausblenden
-        textField.isHidden = true
-        textField.resignFirstResponder()
-        */
          
         //Buttons
         showAnswerButton.isHidden = false
@@ -171,15 +68,6 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         } else {
             answerLabel.text = "?"
         }
-        
-        /*
-        switch mode {
-        case .flashCard:
-            updateFlashCardUI(elementName: elementName)
-        case .quiz:
-            updateQuizUI(elementName: elementName)
-        }
-         */
     }
     
     /*

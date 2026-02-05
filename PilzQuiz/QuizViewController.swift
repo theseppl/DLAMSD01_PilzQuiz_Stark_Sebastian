@@ -43,7 +43,7 @@ class QuizViewController: UIViewController {
 
         if currentElementIndex >= elementList.count {
             currentElementIndex = 0
-            // Hier könntest du später Score anzeigen
+            displayScoreAlert()
         }
 
         updateUI()
@@ -108,6 +108,27 @@ class QuizViewController: UIViewController {
         for i in 0..<answerButtonArray.count {
             answerButtonArray[i].setTitle(allFourAnswers[i], for: .normal)
         }
+    }
+    
+    // Zeigt das modale Pop-up zur Anzeige der Punktzahl
+    func displayScoreAlert() {
+        //Meldung wird erzeugt
+        let alert = UIAlertController(title: "Quiz Punktzahl", message: "Deine Punktzahl ist \(correctAnswerCount) von \(elementList.count).", preferredStyle: .alert)
+        
+        //Beschreibt den Button des Pop-ups (für Aktion)
+        //Callback: Er ruft die Methode scoreAlertDismissed(_:) auf
+        let dismissAction = UIAlertAction(title: "Zum Hauptmenü", style: .default, handler: scoreAlertDismissed(_:))
+        
+        //Die Aktion wird dem Action-Controller übergeben
+        alert.addAction(dismissAction)
+        
+        // Meldung wird präsentiert
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // Vom Pop-up zurück zum WelcomeViewController
+    func scoreAlertDismissed(_ action: UIAlertAction) {
+        navigationController?.popToRootViewController(animated: true)
     }
 
     override func viewDidLoad() {
