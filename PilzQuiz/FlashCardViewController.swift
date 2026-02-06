@@ -14,10 +14,15 @@ enum State {
 }
 
 class FlashCardViewController: UIViewController, UITextFieldDelegate {
-
+    
+    /*
     let fixedMushroomList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
+    */
+    
+    let fixedMushroomList: [Mushroom] = MushroomData.all
+    
     //Array als Variable um Zufallsgenerator zu ermöglichen
-    var variableMushroomList: [String] = []
+    var variableMushroomList: [Mushroom] = []
     var currentMushroomIndex = 0
 
     var state: State = .question
@@ -46,7 +51,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     
     //Startet eine neue Flash-Card-Session
     func setupFlashCards() {
-        variableMushroomList = fixedMushroomList
+        variableMushroomList = fixedMushroomList.shuffled()
         state = .question
         currentMushroomIndex = 0
     }
@@ -54,8 +59,8 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     // Single Point of Entry für alle UI-Anpassungen
     // Nur sie darf andere UI-Anpassungsmethoden aufrufen
     func updateUI() {
-        let mushroomName = variableMushroomList[currentMushroomIndex]
-        let image = UIImage(named: mushroomName)
+        let mushroom = variableMushroomList[currentMushroomIndex]
+        let image = UIImage(named: mushroom.name)
         imageView.image = image
          
         //Buttons
@@ -64,7 +69,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         nextButton.setTitle("Nächster Pilz", for: .normal)
 
         if state == .answer {
-            answerLabel.text = mushroomName
+            answerLabel.text = mushroom.name
         } else {
             answerLabel.text = "?"
         }
