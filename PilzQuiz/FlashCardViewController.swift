@@ -12,8 +12,8 @@ enum State {
     case answer
  //   case score
 }
-
-class FlashCardViewController: UIViewController, UITextFieldDelegate {
+// class FlashCardViewController: UIViewController, UITextFieldDelegate {
+class FlashCardViewController: BackgroundViewController {
     
     let fixedMushroomList: [Mushroom] = MushroomData.all
     
@@ -59,10 +59,12 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         imageView.image = image
          
         //Buttons
+        /*
         showAnswerButton.isHidden = false
         nextButton.isEnabled = true
         nextButton.setTitle("Nächster Pilz", for: .normal)
-
+         */
+         
         if state == .answer {
             answerLabel.text = mushroom.name
             answerLabel2.text = mushroom.latinName +
@@ -77,11 +79,13 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.lineBreakMode = .byWordWrapping
-
-        button.backgroundColor = UIColor.systemGreen
-        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 14
-        button.layer.masksToBounds = true
+        button.layer.masksToBounds = false
+        
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.35
+        button.layer.shadowOffset = CGSize(width: 5, height: 5)
+        button.layer.shadowRadius = 6
     }
 
 
@@ -167,6 +171,14 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         setupFlashCards()
         styleButton(showAnswerButton)
         styleButton(nextButton)
+        
+        /*
+        let backgroundImage = UIImageView(frame: view.bounds)
+        backgroundImage.image = UIImage(named: "Hintergrundbild")
+        backgroundImage.contentMode = .scaleAspectFill
+        backgroundImage.clipsToBounds = true
+        view.insertSubview(backgroundImage, at: 0)
+        */
         updateUI()
     }
 }

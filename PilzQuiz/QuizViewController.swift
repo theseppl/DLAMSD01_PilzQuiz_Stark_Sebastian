@@ -7,7 +7,8 @@
 
 import UIKit
 
-class QuizViewController: UIViewController {
+//class QuizViewController: UIViewController {
+class QuizViewController: BackgroundViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var answerButton1: UIButton!

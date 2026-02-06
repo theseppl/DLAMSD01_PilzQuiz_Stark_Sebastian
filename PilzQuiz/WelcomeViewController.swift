@@ -7,7 +7,8 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+//class WelcomeViewController: UIViewController {
+class WelcomeViewController: BackgroundViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
