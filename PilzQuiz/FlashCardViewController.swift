@@ -15,10 +15,6 @@ enum State {
 
 class FlashCardViewController: UIViewController, UITextFieldDelegate {
     
-    /*
-    let fixedMushroomList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
-    */
-    
     let fixedMushroomList: [Mushroom] = MushroomData.all
     
     //Array als Variable um Zufallsgenerator zu ermöglichen

@@ -18,8 +18,9 @@ class QuizViewController: UIViewController {
     var answerButtonArray: [UIButton] = []
     var fourButtonTitles: [String] = []
     
-    let fixedMushroomList = ["Apfeltäubling", "Beutelstäubling", "Fliegenpilz", "Karbol-Champignon", "Duftender Klumpfuß", "Dünnstieliger Helmkreisling", "Eichenmilchling", "Fleischfarbener Hallimasch", "Gemeiner Steinpilz", "Anistäubling"]
-    var variableMushroomList: [String] = []
+    let fixedMushroomList: [Mushroom] = MushroomData.all
+    
+    var variableMushroomList: [Mushroom] = []
     var currentMushroomIndex = 0
     var answerIsCorrect = false
     var correctAnswerCount = 0
@@ -27,7 +28,7 @@ class QuizViewController: UIViewController {
     @IBAction func answerButtonTapped(_ sender: UIButton) {
         let title = sender.title(for: .normal)
 
-        let correctAnswer = variableMushroomList[currentMushroomIndex]
+        let correctAnswer = variableMushroomList[currentMushroomIndex].name
 
         if title == correctAnswer {
             answerIsCorrect = true
@@ -58,13 +59,13 @@ class QuizViewController: UIViewController {
     }
     
     func updateUI() {
-        let mushroomName = variableMushroomList[currentMushroomIndex]
-        let image = UIImage(named: mushroomName)
+        let mushroom = variableMushroomList[currentMushroomIndex]
+        let image = UIImage(named: mushroom.name)
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.image = image
-        assignAnswers(correctAnswer: mushroomName)
+        assignAnswers(correctAnswer: mushroom.name)
     }
 
     func assignAnswers(correctAnswer: String) {
@@ -73,8 +74,8 @@ class QuizViewController: UIViewController {
         var wrongAnswers: [String] = []
 
         for mushroom in fixedMushroomList {
-            if mushroom != correctAnswer {
-                wrongAnswers.append(mushroom)
+            if mushroom.name != correctAnswer {
+                wrongAnswers.append(mushroom.name)
             }
         }
 
