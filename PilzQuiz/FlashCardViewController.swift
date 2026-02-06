@@ -10,7 +10,7 @@ import UIKit
 enum State {
     case question
     case answer
-    case score
+ //   case score
 }
 
 class FlashCardViewController: UIViewController, UITextFieldDelegate {
@@ -27,6 +27,7 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
+    @IBOutlet weak var answerLabel2: UILabel!
     @IBOutlet weak var showAnswerButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     
@@ -52,8 +53,6 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
         currentMushroomIndex = 0
     }
 
-    // Single Point of Entry für alle UI-Anpassungen
-    // Nur sie darf andere UI-Anpassungsmethoden aufrufen
     func updateUI() {
         let mushroom = variableMushroomList[currentMushroomIndex]
         let image = UIImage(named: mushroom.name)
@@ -66,10 +65,26 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
 
         if state == .answer {
             answerLabel.text = mushroom.name
+            answerLabel2.text = mushroom.latinName +
+            "\n" + "Gattung: " + mushroom.genus + "\n" + mushroom.toxicity
         } else {
-            answerLabel.text = "?"
+            answerLabel.text = "Kennst du den Pilz?"
+            answerLabel2.text = ""
         }
     }
+
+    func styleButton(_ button: UIButton) {
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+
+        button.backgroundColor = UIColor.systemGreen
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 14
+        button.layer.masksToBounds = true
+    }
+
+
     
     /*
     //Updated die UI im FlashCard-Modus
@@ -146,11 +161,12 @@ class FlashCardViewController: UIViewController, UITextFieldDelegate {
   */
     override func viewDidLoad() {
         super.viewDidLoad()
-//        mode = .flashCard
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         setupFlashCards()
+        styleButton(showAnswerButton)
+        styleButton(nextButton)
         updateUI()
     }
 }

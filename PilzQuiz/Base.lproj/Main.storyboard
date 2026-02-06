@@ -17,32 +17,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0NE-OL-oi3">
-                                <rect key="frame" x="44" y="145" width="314" height="214"/>
+                                <rect key="frame" x="44" y="178" width="314" height="214"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Answer Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Gyd-qa-wUY">
-                                <rect key="frame" x="44" y="397" width="314" height="82"/>
+                                <rect key="frame" x="44" y="400" width="314" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-AI-w7R">
-                                <rect key="frame" x="57" y="545" width="127" height="35"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Answer Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="XxP-fF-oTb">
+                                <rect key="frame" x="44" y="473" width="314" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Show Answer"/>
-                                <connections>
-                                    <action selector="showAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IoM-gU-E8R"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyd-au-C0x">
-                                <rect key="frame" x="192" y="545" width="166" height="35"/>
+                                <rect key="frame" x="238" y="560" width="120" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Next Element"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Nächster Pilz"/>
                                 <connections>
                                     <action selector="next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Ob-wO-ZYQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-AI-w7R">
+                                <rect key="frame" x="44" y="560" width="120" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <size key="titleShadowOffset" width="5" height="-5"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Antwort aufdecken" titleAlignment="center"/>
+                                <connections>
+                                    <action selector="showAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IoM-gU-E8R"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -52,6 +60,7 @@
                     <navigationItem key="navigationItem" id="lSZ-IX-qCg"/>
                     <connections>
                         <outlet property="answerLabel" destination="Gyd-qa-wUY" id="pAi-Sd-qUJ"/>
+                        <outlet property="answerLabel2" destination="XxP-fF-oTb" id="8lr-4n-aji"/>
                         <outlet property="imageView" destination="0NE-OL-oi3" id="nrU-om-287"/>
                         <outlet property="nextButton" destination="Gyd-au-C0x" id="qV6-ND-HRY"/>
                         <outlet property="showAnswerButton" destination="sw8-AI-w7R" id="M5i-3P-IF0"/>
