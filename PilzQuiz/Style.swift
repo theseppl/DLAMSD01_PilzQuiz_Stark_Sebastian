@@ -30,8 +30,6 @@ struct Style {
         image.layer.cornerRadius = 16
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
-        
-        
         image.layer.borderWidth = 3
         image.layer.borderColor = UIColor.white.withAlphaComponent(0.4).cgColor
         image.layer.cornerRadius = 16
