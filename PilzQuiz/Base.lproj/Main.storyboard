@@ -188,9 +188,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="jBU-3R-cSZ"/>
                     <connections>
+                        <outlet property="flashCardsButton" destination="MLJ-Yc-bwR" id="dd6-Lo-sgk"/>
                         <outlet property="genusSwitch" destination="1Wf-gq-n70" id="Hnb-0n-gLn"/>
                         <outlet property="latinNameSwitch" destination="1mh-6n-Xri" id="V8K-Yv-lkl"/>
                         <outlet property="nameSwitch" destination="1WE-tD-mOe" id="LdP-Xn-xjc"/>
+                        <outlet property="quizButton" destination="cF9-xP-rrp" id="acl-4u-tIE"/>
                         <outlet property="toxicitySwitch" destination="ZZG-iI-m2C" id="7GH-en-g9E"/>
                     </connections>
                 </viewController>

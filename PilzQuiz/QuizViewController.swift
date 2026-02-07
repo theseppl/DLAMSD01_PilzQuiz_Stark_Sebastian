@@ -107,10 +107,13 @@ class QuizViewController: BackgroundViewController {
         }
         
         // Bild setzen
+        /*
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+         */
         imageView.image = UIImage(named: mushroom.name)
+        Style.image(imageView)
         
         assignAnswers(for: mushroom)
     }

@@ -56,7 +56,9 @@ class FlashCardViewController: BackgroundViewController {
     func updateUI() {
         let mushroom = variableMushroomList[currentMushroomIndex]
         let image = UIImage(named: mushroom.name)
+        
         imageView.image = image
+        Style.image(imageView)
          
         //Buttons
         /*
@@ -165,9 +167,11 @@ class FlashCardViewController: BackgroundViewController {
   */
     override func viewDidLoad() {
         super.viewDidLoad()
+        /*
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+         */
         setupFlashCards()
         Style.button(showAnswerButton)
         Style.button(nextButton)

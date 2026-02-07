@@ -14,6 +14,8 @@ class WelcomeViewController: BackgroundViewController {
     var askGenus = false
     var askToxicity = false
     
+    @IBOutlet weak var flashCardsButton: UIButton!
+    @IBOutlet weak var quizButton: UIButton!
     @IBOutlet weak var nameSwitch: UISwitch!
     @IBOutlet weak var latinNameSwitch: UISwitch!
     @IBOutlet weak var genusSwitch: UISwitch!
@@ -52,6 +54,14 @@ class WelcomeViewController: BackgroundViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Style.button(flashCardsButton)
+        Style.button(quizButton)
+        
+        let switchesList: [UISwitch] = [nameSwitch, latinNameSwitch, genusSwitch, toxicitySwitch]
+        for mySwitch in switchesList {
+            Style.switches(mySwitch)
+        }
+
         // Do any additional setup after loading the view.
     }
     
