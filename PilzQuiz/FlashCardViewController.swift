@@ -171,14 +171,6 @@ class FlashCardViewController: BackgroundViewController {
         setupFlashCards()
         styleButton(showAnswerButton)
         styleButton(nextButton)
-        
-        /*
-        let backgroundImage = UIImageView(frame: view.bounds)
-        backgroundImage.image = UIImage(named: "Hintergrundbild")
-        backgroundImage.contentMode = .scaleAspectFill
-        backgroundImage.clipsToBounds = true
-        view.insertSubview(backgroundImage, at: 0)
-        */
         updateUI()
     }
 }

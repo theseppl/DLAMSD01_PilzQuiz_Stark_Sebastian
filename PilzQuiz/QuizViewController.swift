@@ -9,7 +9,7 @@ import UIKit
 
 //class QuizViewController: UIViewController {
 class QuizViewController: BackgroundViewController {
-
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var answerButton1: UIButton!
     @IBOutlet weak var answerButton2: UIButton!
@@ -28,29 +28,43 @@ class QuizViewController: BackgroundViewController {
     
     @IBAction func answerButtonTapped(_ sender: UIButton) {
         let title = sender.title(for: .normal)
-
         let correctAnswer = variableMushroomList[currentMushroomIndex].name
-
+        
         if title == correctAnswer {
             answerIsCorrect = true
             correctAnswerCount += 1
+            sender.backgroundColor = UIColor.systemGreen
             print("Richtig")
         } else {
             answerIsCorrect = false
+            sender.backgroundColor = UIColor.systemRed
             print("Falsch — richtig wäre: \(correctAnswer)")
         }
-
-        // Nächste Frage laden
-        currentMushroomIndex += 1
-
-        if currentMushroomIndex >= variableMushroomList.count {
-            currentMushroomIndex = 0
-            displayScoreAlert()
+        
+        // Buttons deaktivieren, um mehrfache Betätigung zu vermeiden.
+        answerButtonArray.forEach { $0.isEnabled = false }
+        
+        // Verzögerung
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            
+            // Nächste Frage laden
+            self.currentMushroomIndex += 1
+            
+            if self.currentMushroomIndex >= self.variableMushroomList.count {
+                self.currentMushroomIndex = 0
+                self.displayScoreAlert()
+            }
+            
+            // Buttons zurücksetzen
+            self.answerButtonArray.forEach {
+                $0.backgroundColor = UIColor.systemBlue   // deine Standardfarbe
+                $0.isEnabled = true
+            }
+            
+            self.updateUI()
         }
-
-        updateUI()
     }
-
+    
     func setupQuiz() {
         // Würfelt variableMushroomList durcheinander
         variableMushroomList = fixedMushroomList.shuffled()
@@ -68,44 +82,44 @@ class QuizViewController: BackgroundViewController {
         imageView.image = image
         assignAnswers(correctAnswer: mushroom.name)
     }
-
+    
     func assignAnswers(correctAnswer: String) {
-
+        
         // Falsche Antworten sammeln
         var wrongAnswers: [String] = []
-
+        
         for mushroom in fixedMushroomList {
             if mushroom.name != correctAnswer {
                 wrongAnswers.append(mushroom.name)
             }
         }
-
+        
         // wrongAnswers mischen
         for i in 0..<(wrongAnswers.count - 1) {
             let j = Int.random(in: i..<wrongAnswers.count)
             wrongAnswers.swapAt(i, j)
         }
-
+        
         // Die ersten 3 falschen Antworten nehmen
         var selectedWrongAnswers: [String] = []
         for i in 0..<3 {
             selectedWrongAnswers.append(wrongAnswers[i])
         }
-
+        
         // Richtige + falsche Antworten zusammenführen
         var allFourAnswers: [String] = []
         allFourAnswers.append(correctAnswer)
-
+        
         for wrong in selectedWrongAnswers {
             allFourAnswers.append(wrong)
         }
-
+        
         // allFourAnswers mischen
         for i in 0..<(allFourAnswers.count - 1) {
             let j = Int.random(in: i..<allFourAnswers.count)
             allFourAnswers.swapAt(i, j)
         }
-
+        
         // Buttons befüllen
         for i in 0..<answerButtonArray.count {
             answerButtonArray[i].setTitle(allFourAnswers[i], for: .normal)
@@ -132,22 +146,42 @@ class QuizViewController: BackgroundViewController {
     func scoreAlertDismissed(_ action: UIAlertAction) {
         navigationController?.popToRootViewController(animated: true)
     }
-
+    
+    func styleButton(_ button: UIButton) {
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        button.layer.cornerRadius = 14
+        button.layer.masksToBounds = false
+        
+        button.layer.shadowColor = UIColor.lightGray.cgColor
+        //button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.35
+        button.layer.shadowOffset = CGSize(width: 5, height: 5)
+        button.layer.shadowRadius = 6
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         answerButtonArray = [answerButton1, answerButton2, answerButton3, answerButton4]
         setupQuiz()
+        
+        for button in answerButtonArray {
+            styleButton(button)
+        }
+        
         updateUI()
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
+
