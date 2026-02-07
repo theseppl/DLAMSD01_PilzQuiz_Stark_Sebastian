@@ -7,7 +7,6 @@
 
 import UIKit
 
-//class WelcomeViewController: UIViewController {
 class WelcomeViewController: BackgroundViewController {
     var askName = true
     var askLatinName = false
@@ -22,16 +21,16 @@ class WelcomeViewController: BackgroundViewController {
     @IBOutlet weak var toxicitySwitch: UISwitch!
     
     @IBAction func switchChanged(_ sender: UISwitch) {
-
+        
         // Prüfen, ob ALLE aus sind
         if !nameSwitch.isOn &&
-           !latinNameSwitch.isOn &&
-           !genusSwitch.isOn &&
-           !toxicitySwitch.isOn {
-
+            !latinNameSwitch.isOn &&
+            !genusSwitch.isOn &&
+            !toxicitySwitch.isOn {
+            
             // Den gerade veränderten Switch wieder einschalten
             sender.setOn(true, animated: true)
-
+            
             // Optional: kurze Rückmeldung
             let alert = UIAlertController(
                 title: "Mindestens eine Option",
@@ -51,7 +50,7 @@ class WelcomeViewController: BackgroundViewController {
             quizVC.askToxicity = toxicitySwitch.isOn
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Style.button(flashCardsButton)
@@ -61,19 +60,5 @@ class WelcomeViewController: BackgroundViewController {
         for mySwitch in switchesList {
             Style.switches(mySwitch)
         }
-
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
