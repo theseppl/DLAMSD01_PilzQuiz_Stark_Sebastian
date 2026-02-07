@@ -192,8 +192,15 @@
                                 <rect key="frame" x="44" y="178" width="314" height="214"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgd-CK-Hjv">
+                                <rect key="frame" x="44" y="400" width="314" height="123"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5P-ft-bMW">
-                                <rect key="frame" x="100" y="469" width="200" height="70"/>
+                                <rect key="frame" x="101" y="531" width="200" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
@@ -202,7 +209,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ei8-3r-btJ">
-                                <rect key="frame" x="100" y="547" width="200" height="70"/>
+                                <rect key="frame" x="101" y="609" width="200" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
@@ -210,22 +217,22 @@
                                     <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="CF6-Ri-Sly"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpn-HK-OhZ">
-                                <rect key="frame" x="100" y="625" width="200" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
-                                <connections>
-                                    <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="5gU-mP-5yG"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGf-K4-M0d">
-                                <rect key="frame" x="100" y="703" width="200" height="70"/>
+                                <rect key="frame" x="101" y="765" width="200" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
                                 <connections>
                                     <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="Jw3-Rm-POf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpn-HK-OhZ">
+                                <rect key="frame" x="101" y="687" width="200" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <action selector="answerButtonTapped:" destination="8tT-Ea-Xsw" eventType="touchUpInside" id="5gU-mP-5yG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -238,7 +245,8 @@
                         <outlet property="answerButton2" destination="ei8-3r-btJ" id="kzM-Fo-K1X"/>
                         <outlet property="answerButton3" destination="mpn-HK-OhZ" id="FjL-SE-w3x"/>
                         <outlet property="answerButton4" destination="YGf-K4-M0d" id="bH7-fU-Rud"/>
-                        <outlet property="imageView" destination="c0f-RF-XPT" id="6ck-TF-KN4"/>
+                        <outlet property="imageView" destination="c0f-RF-XPT" id="Vbw-ir-tuJ"/>
+                        <outlet property="questionAnswerLabel" destination="pgd-CK-Hjv" id="7aV-CO-SpF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfk-Qt-2Yc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
