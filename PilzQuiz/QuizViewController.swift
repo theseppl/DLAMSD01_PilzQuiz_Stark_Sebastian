@@ -185,7 +185,7 @@ class QuizViewController: BackgroundViewController {
             questionAnswerLabel.text = "Richtig. Sehr gut!"
         } else {
             sender.backgroundColor = .systemRed
-            questionAnswerLabel.text = "Leider falsch. Die korrekte Antwort war: \(correctAnswer)."
+            questionAnswerLabel.text = "❌ \(correctAnswer)."
         }
         
         // Buttons deaktivieren um doppelte Eingabe zu vermeiden
