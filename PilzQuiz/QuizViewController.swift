@@ -54,7 +54,8 @@ class QuizViewController: BackgroundViewController {
         answerButtonArray = [answerButton1, answerButton2, answerButton3, answerButton4]
         
         for button in answerButtonArray {
-            styleButton(button)
+           // styleButton(button)
+            Style.button(button)
         }
         
         setupQuiz()
@@ -235,6 +236,8 @@ class QuizViewController: BackgroundViewController {
     
     
     // MARK: - Button Styling
+    
+    /*
     func styleButton(_ button: UIButton) {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center
@@ -244,6 +247,8 @@ class QuizViewController: BackgroundViewController {
         button.layer.shadowOffset = CGSize(width: 5, height: 5)
         button.layer.shadowRadius = 6
     }
+     
+     */
 }
 
 

@@ -74,7 +74,7 @@ class FlashCardViewController: BackgroundViewController {
             answerLabel2.text = ""
         }
     }
-
+/*
     func styleButton(_ button: UIButton) {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center
@@ -82,12 +82,12 @@ class FlashCardViewController: BackgroundViewController {
         button.layer.cornerRadius = 14
         button.layer.masksToBounds = false
         
-        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowColor = UIColor.lightGray.cgColor
         button.layer.shadowOpacity = 0.35
         button.layer.shadowOffset = CGSize(width: 5, height: 5)
         button.layer.shadowRadius = 6
     }
-
+*/
 
     
     /*
@@ -169,8 +169,10 @@ class FlashCardViewController: BackgroundViewController {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         setupFlashCards()
-        styleButton(showAnswerButton)
-        styleButton(nextButton)
+        Style.button(showAnswerButton)
+        Style.button(nextButton)
+ //       styleButton(showAnswerButton)
+ //       styleButton(nextButton)
         updateUI()
     }
 }
