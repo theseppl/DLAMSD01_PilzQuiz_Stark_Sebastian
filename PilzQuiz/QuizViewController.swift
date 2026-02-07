@@ -10,6 +10,15 @@ import UIKit
 //class QuizViewController: UIViewController {
 class QuizViewController: BackgroundViewController {
     
+    enum QuestionType {
+        case name
+        case latin
+        case genus
+        case toxicity
+    }
+    
+    var currentQuestionType: QuestionType = .name
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var answerButton1: UIButton!
     @IBOutlet weak var answerButton2: UIButton!
@@ -26,21 +35,60 @@ class QuizViewController: BackgroundViewController {
     var answerIsCorrect = false
     var correctAnswerCount = 0
     
+    var askName = true
+    var askLatinName = false
+    var askGenus = false
+    var askToxicity = false
+    
     @IBAction func answerButtonTapped(_ sender: UIButton) {
-        let title = sender.title(for: .normal)
-        let correctAnswer = variableMushroomList[currentMushroomIndex].name
+        
+        let title = sender.title(for: .normal)!
+        let mushroom = variableMushroomList[currentMushroomIndex]
+        
+        let correctAnswer: String
+        
+        switch currentQuestionType {
+        case .name: correctAnswer = mushroom.name
+        case .latin: correctAnswer = mushroom.latinName
+        case .genus: correctAnswer = mushroom.genus
+        case .toxicity: correctAnswer = mushroom.toxicity
+        }
         
         if title == correctAnswer {
             answerIsCorrect = true
             correctAnswerCount += 1
-            sender.backgroundColor = UIColor.systemGreen
-            print("Richtig")
+            sender.backgroundColor = .systemGreen
         } else {
             answerIsCorrect = false
-            sender.backgroundColor = UIColor.systemRed
-            print("Falsch — richtig wäre: \(correctAnswer)")
+            sender.backgroundColor = .systemRed
         }
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+         let title = sender.title(for: .normal)
+         let correctAnswer = variableMushroomList[currentMushroomIndex].name
+         
+         if title == correctAnswer {
+         answerIsCorrect = true
+         correctAnswerCount += 1
+         sender.backgroundColor = UIColor.systemGreen
+         print("Richtig")
+         } else {
+         answerIsCorrect = false
+         sender.backgroundColor = UIColor.systemRed
+         print("Falsch — richtig wäre: \(correctAnswer)")
+         }
+         */
         // Buttons deaktivieren, um mehrfache Betätigung zu vermeiden.
         answerButtonArray.forEach { $0.isEnabled = false }
         
@@ -75,56 +123,155 @@ class QuizViewController: BackgroundViewController {
     
     func updateUI() {
         let mushroom = variableMushroomList[currentMushroomIndex]
-        let image = UIImage(named: mushroom.name)
+        
+        // 1. Liste aller aktivierten Fragetypen erstellen
+        var availableTypes: [QuestionType] = []
+        
+        if askName { availableTypes.append(.name) }
+        if askLatinName { availableTypes.append(.latin) }
+        if askGenus { availableTypes.append(.genus) }
+        if askToxicity { availableTypes.append(.toxicity) }
+        
+        // 2. Zufällig einen auswählen
+        currentQuestionType = availableTypes.randomElement()!
+        
+        // 3. Bild setzen
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.image = image
-        assignAnswers(correctAnswer: mushroom.name)
+        imageView.image = UIImage(named: mushroom.name)
+        
+        // 4. Antworten generieren
+        assignAnswers(for: mushroom)
     }
     
-    func assignAnswers(correctAnswer: String) {
+    func assignAnswers(for mushroom: Mushroom) {
         
-        // Falsche Antworten sammeln
-        var wrongAnswers: [String] = []
+        let correctAnswer: String
         
-        for mushroom in fixedMushroomList {
-            if mushroom.name != correctAnswer {
-                wrongAnswers.append(mushroom.name)
+        switch currentQuestionType {
+        case .name:
+            correctAnswer = mushroom.name
+        case .latin:
+            correctAnswer = mushroom.latinName
+        case .genus:
+            correctAnswer = mushroom.genus
+        case .toxicity:
+            correctAnswer = mushroom.toxicity
+        }
+        
+        // Falsche Antworten sammeln als Set um doppelte Antworten zu vermeiden
+        var wrongAnswersSet = Set<String>()
+
+        for m in fixedMushroomList {
+            if m.name != mushroom.name {
+                switch currentQuestionType {
+                case .name: wrongAnswersSet.insert(m.name)
+                case .latin: wrongAnswersSet.insert(m.latinName)
+                case .genus: wrongAnswersSet.insert(m.genus)
+                case .toxicity: wrongAnswersSet.insert(m.toxicity)
+                }
             }
         }
+
+        // Richtige Antwort aus den falschen entfernen
+        wrongAnswersSet.remove(correctAnswer)
         
-        // wrongAnswers mischen
-        for i in 0..<(wrongAnswers.count - 1) {
-            let j = Int.random(in: i..<wrongAnswers.count)
-            wrongAnswers.swapAt(i, j)
+        var wrongAnswers = Array(wrongAnswersSet)
+        wrongAnswers.shuffle()
+
+        
+        
+        
+        
+        
+        
+        // Falsche Antworten sammeln
+        /*
+        var wrongAnswers: [String] = []
+        for m in fixedMushroomList {
+            if m.name != mushroom.name {   // wichtig: nicht denselben Pilz nehmen
+                switch currentQuestionType {
+                case .name: wrongAnswers.append(m.name)
+                case .latin: wrongAnswers.append(m.latinName)
+                case .genus: wrongAnswers.append(m.genus)
+                case .toxicity: wrongAnswers.append(m.toxicity)
+                }
+            }
         }
+        wrongAnswers.shuffle()
+        */
         
-        // Die ersten 3 falschen Antworten nehmen
-        var selectedWrongAnswers: [String] = []
-        for i in 0..<3 {
-            selectedWrongAnswers.append(wrongAnswers[i])
-        }
         
-        // Richtige + falsche Antworten zusammenführen
-        var allFourAnswers: [String] = []
-        allFourAnswers.append(correctAnswer)
         
-        for wrong in selectedWrongAnswers {
-            allFourAnswers.append(wrong)
-        }
+        let selectedWrongAnswers = Array(wrongAnswers.prefix(3))
         
-        // allFourAnswers mischen
-        for i in 0..<(allFourAnswers.count - 1) {
-            let j = Int.random(in: i..<allFourAnswers.count)
-            allFourAnswers.swapAt(i, j)
-        }
+        var allFour = [correctAnswer] + selectedWrongAnswers
+        allFour.shuffle()
         
-        // Buttons befüllen
         for i in 0..<answerButtonArray.count {
-            answerButtonArray[i].setTitle(allFourAnswers[i], for: .normal)
+            answerButtonArray[i].setTitle(allFour[i], for: .normal)
         }
     }
+    
+    
+    /*
+     func updateUI() {
+     let mushroom = variableMushroomList[currentMushroomIndex]
+     let image = UIImage(named: mushroom.name)
+     imageView.layer.cornerRadius = 16
+     imageView.clipsToBounds = true
+     imageView.contentMode = .scaleAspectFill
+     imageView.image = image
+     assignAnswers(correctAnswer: mushroom.name)
+     }
+     */
+    
+    /*
+     func assignAnswers(correctAnswer: String) {
+     
+     // Falsche Antworten sammeln
+     var wrongAnswers: [String] = []
+     
+     for mushroom in fixedMushroomList {
+     if mushroom.name != correctAnswer {
+     wrongAnswers.append(mushroom.name)
+     }
+     }
+     
+     // wrongAnswers mischen
+     for i in 0..<(wrongAnswers.count - 1) {
+     let j = Int.random(in: i..<wrongAnswers.count)
+     wrongAnswers.swapAt(i, j)
+     }
+     
+     // Die ersten 3 falschen Antworten nehmen
+     var selectedWrongAnswers: [String] = []
+     for i in 0..<3 {
+     selectedWrongAnswers.append(wrongAnswers[i])
+     }
+     
+     // Richtige + falsche Antworten zusammenführen
+     var allFourAnswers: [String] = []
+     allFourAnswers.append(correctAnswer)
+     
+     for wrong in selectedWrongAnswers {
+     allFourAnswers.append(wrong)
+     }
+     
+     // allFourAnswers mischen
+     for i in 0..<(allFourAnswers.count - 1) {
+     let j = Int.random(in: i..<allFourAnswers.count)
+     allFourAnswers.swapAt(i, j)
+     }
+     
+     // Buttons befüllen
+     for i in 0..<answerButtonArray.count {
+     answerButtonArray[i].setTitle(allFourAnswers[i], for: .normal)
+     }
+     }
+     */
+    
     
     // Zeigt das modale Pop-up zur Anzeige der Punktzahl
     func displayScoreAlert() {
