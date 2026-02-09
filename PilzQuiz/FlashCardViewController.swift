@@ -7,22 +7,31 @@
 
 import UIKit
 
+/*
+ Der FlashCard‑Modus zeigt jeweils einen Pilz.
+ Der Nutzer sieht zuerst nur das Bild („question“),
+ und kann dann die Lösung einblenden („answer“).
+ Danach kann er zur nächsten Karte springen.
+ */
 enum State {
-    case question
-    case answer
+    case question // Nur das Bild wird gezeigt
+    case answer // Bild + Name + Latein + Gattung + Essbarkeit
 }
 
 class FlashCardViewController: BackgroundViewController {
     
+    // MARK: - Variablen und Konstanten
+    
+    // Feste Liste aller Pilze
     let fixedMushroomList: [Mushroom] = MushroomData.all
     
     //Array als Variable um Zufallsgenerator zu ermöglichen
     var variableMushroomList: [Mushroom] = []
+    // Index des aktuell angezeigten Pilzes
     var currentMushroomIndex = 0
     
+    // Aktueller Zustand der Karte (Frage oder Antwort)
     var state: State = .question
-    var answerIsCorrect = false
-    var correctAnswerCount = 0
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
@@ -30,13 +39,20 @@ class FlashCardViewController: BackgroundViewController {
     @IBOutlet weak var showAnswerButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     
+    // MARK: - Funktionen
+    
+    // Zeigt die Lösung zur aktuellen Karte an.
     @IBAction func showAnswer(_ sender: Any) {
         state = .answer
         updateUI()
     }
     
+    // Springt zur nächsten Karte.
+    // Wenn das Ende erreicht ist, beginnt die Liste wieder von vorne.
     @IBAction func next(_ sender: Any) {
         currentMushroomIndex += 1
+        
+        // Wenn wir am Ende sind → wieder bei 0 starten
         if currentMushroomIndex >= variableMushroomList.count {
             currentMushroomIndex = 0
         }
@@ -46,19 +62,25 @@ class FlashCardViewController: BackgroundViewController {
     }
     
     //Startet eine neue Flash-Card-Session
+    // Die Pilze werden gemischt, damit die Reihenfolge jedes Mal anders ist.
     func setupFlashCards() {
         variableMushroomList = fixedMushroomList.shuffled()
         state = .question
         currentMushroomIndex = 0
     }
     
+    // Aktualisiert die gesamte Oberfläche basierend auf dem aktuellen Zustand.
+    // Zeigt entweder nur das Bild (question) oder alle Infos (answer).
     func updateUI() {
+        // Aktuellen Pilz holen
         let mushroom = variableMushroomList[currentMushroomIndex]
         let image = UIImage(named: mushroom.name)
         
+        // Bild setzen und stylen
         imageView.image = image
         Style.image(imageView)
         
+        // Zustand prüfen
         if state == .answer {
             answerLabel.text = mushroom.name
             answerLabel2.text = mushroom.latinName +
@@ -69,6 +91,8 @@ class FlashCardViewController: BackgroundViewController {
         }
     }
     
+    // Wird beim ersten Anzeigen des Screens aufgerufen.
+    // Initialisiert die Session und styled die Buttons.
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFlashCards()
