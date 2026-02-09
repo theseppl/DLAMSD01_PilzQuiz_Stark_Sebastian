@@ -7,32 +7,43 @@
 
 import UIKit
 
+// ViewController für das Quiz.
+// Zeigt Pilzbilder, stellt Fragen zu verschiedenen Eigenschaften (Name, Latein, Gattung, Giftigkeit)
+// Bietet vier Antwortmöglichkeiten pro Frage.
+// Die Fragen werden dynamisch aus einer festen Pilzliste generiert, abhängig von den gewählten Fragetypen.
 class QuizViewController: BackgroundViewController {
     
-    // MARK: - Outlets
+    // MARK: - Variablen und Konstanten
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var questionAnswerLabel: UILabel!
+    
     @IBOutlet weak var answerButton1: UIButton!
     @IBOutlet weak var answerButton2: UIButton!
     @IBOutlet weak var answerButton3: UIButton!
     @IBOutlet weak var answerButton4: UIButton!
-    
-    // MARK: - Button Array
+    // Array aller Antwort-Buttons für einfaches Styling und Zugriff
     var answerButtonArray: [UIButton] = []
     
-    // MARK: - Daten
+    // Feste Liste aller Pilze
     let fixedMushroomList: [Mushroom] = MushroomData.all
+    
+    // Dynamisch generierte Fragenliste
     var questions: [QuizQuestion] = []
+    
+    // Aktuelle Position im Quiz
     var currentIndex = 0
+    
+    // Zähler für richtige Antworten
     var correctAnswerCount = 0
     
-    // MARK: - Einstellungen vom WelcomeViewController
+    // Booleans für mögliche Fragetypen
     var askName = true
     var askLatinName = false
     var askGenus = false
     var askToxicity = false
     
-    // MARK: - Fragetyp
+    // Mögliche Eigenschaften, die abgefragt werden können
     enum QuestionType {
         case name
         case latin
@@ -40,28 +51,30 @@ class QuizViewController: BackgroundViewController {
         case toxicity
     }
     
+    // Struktur für eine einzelne Quizfrage
     struct QuizQuestion {
         let mushroom: Mushroom
         let type: QuestionType
     }
     
+    // Aktueller Fragetyp (wird bei jeder Frage gesetzt)
     var currentQuestionType: QuestionType = .name
     
-    // MARK: - View Lifecycle
+    // MARK: - Funktionen
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Buttons sammeln und stylen
         answerButtonArray = [answerButton1, answerButton2, answerButton3, answerButton4]
-        
         for button in answerButtonArray {
             Style.button(button)
         }
-        
         setupQuiz()
         updateUI()
     }
     
-    // MARK: - Quiz Setup
+    // Erstellt die Fragenliste basierend auf den gewählten Fragetypen.
+    // Jeder Pilz erzeugt bis zu vier Fragen (eine pro Fragentyp).
     func setupQuiz() {
         questions = []
         
@@ -80,16 +93,20 @@ class QuizViewController: BackgroundViewController {
             }
         }
         
+        // Zufällige Reihenfolge der Fragen
         questions.shuffle()
         currentIndex = 0
         correctAnswerCount = 0
     }
     
-    // MARK: - UI aktualisieren
+    // Zeigt die aktuelle Frage und das passende Bild.
+    // Setzt den Fragetext und ruft die Antwortlogik auf.
     func updateUI() {
         let question = questions[currentIndex]
         let mushroom = question.mushroom
         currentQuestionType = question.type
+        
+        // Frage formulieren je nach Fragentyp
         questionAnswerLabel.numberOfLines = 0
         switch question.type {
         case .name:
@@ -100,21 +117,23 @@ class QuizViewController: BackgroundViewController {
             questionAnswerLabel.text = "Gattung des Pilzes?"
         case .toxicity:
             questionAnswerLabel.text = "Essbarkeit des Pilzes?"
-
+            
         }
         
-        // Bild setzen
+        // Bild setzen und stylen
         imageView.image = UIImage(named: mushroom.name)
         Style.image(imageView)
         
+        // Antwortmöglichkeiten generieren
         assignAnswers(for: mushroom)
     }
     
-    // MARK: - Antworten generieren
+    // Erstellt vier Antwortmöglichkeiten (eine richtige, drei falsche).
+    // Verhindert Duplikate und füllt bei Bedarf mit Platzhaltern.
     func assignAnswers(for mushroom: Mushroom) {
         
+        // Richtige Antwort je nach Fragetyp
         let correctAnswer: String
-        
         switch currentQuestionType {
         case .name: correctAnswer = mushroom.name
         case .latin: correctAnswer = mushroom.latinName
@@ -122,9 +141,8 @@ class QuizViewController: BackgroundViewController {
         case .toxicity: correctAnswer = mushroom.toxicity
         }
         
-        // Falsche Antworten ohne Duplikate
+        // Falsche Antworten aus anderen Pilzen sammeln (ohne Duplikate)
         var wrongAnswersSet = Set<String>()
-        
         for m in fixedMushroomList {
             if m.name != mushroom.name {
                 switch currentQuestionType {
@@ -136,36 +154,32 @@ class QuizViewController: BackgroundViewController {
             }
         }
         
-        // Richtige Antwort entfernen
+        // Ggf. richtige Antwort aus Set falscher Antworten entfernen
         wrongAnswersSet.remove(correctAnswer)
         
+        // Zufällige Auswahl von bis zu 3 falschen Antworten
         var wrongAnswers = Array(wrongAnswersSet)
         wrongAnswers.shuffle()
-        
         let selectedWrongAnswers = Array(wrongAnswers.prefix(min(3, wrongAnswers.count)))
         
+        // Antworten zusammenstellen
         var allFour = [correctAnswer] + selectedWrongAnswers
-        
-        // Falls weniger als 4 Antworten möglich sind
-        while allFour.count < 4 {
-            allFour.append("—")
-        }
-        
         allFour.shuffle()
         
+        // Buttons beschriften
         for i in 0..<answerButtonArray.count {
             answerButtonArray[i].setTitle(allFour[i], for: .normal)
         }
     }
     
-    // MARK: - Antwort gedrückt
+    // Prüft, ob die gewählte Antwort korrekt ist.
+    // Gibt Feedback, färbt Button und lädt nach kurzer Pause die nächste Frage.
     @IBAction func answerButtonTapped(_ sender: UIButton) {
-        
         let question = questions[currentIndex]
         let mushroom = question.mushroom
         
+        // Richtige Antwort bestimmen
         let correctAnswer: String
-        
         switch question.type {
         case .name: correctAnswer = mushroom.name
         case .latin: correctAnswer = mushroom.latinName
@@ -173,6 +187,7 @@ class QuizViewController: BackgroundViewController {
         case .toxicity: correctAnswer = mushroom.toxicity
         }
         
+        // Antwort prüfen und Feedback geben
         if sender.title(for: .normal) == correctAnswer {
             correctAnswerCount += 1
             sender.backgroundColor = .systemGreen
@@ -191,10 +206,12 @@ class QuizViewController: BackgroundViewController {
         }
     }
     
-    // MARK: - Nächste Frage
+    // Erhöht den Index und zeigt die nächste Frage.
+    // Falls das Quiz zu Ende ist, wird das Ergebnis angezeigt.
     func loadNextQuestion() {
         currentIndex += 1
         
+        // Wenn das Ende der Fragenliste erreicht ist, wird Meldung aufgerufen.
         if currentIndex >= questions.count {
             displayScoreAlert()
             return
@@ -209,7 +226,8 @@ class QuizViewController: BackgroundViewController {
         updateUI()
     }
     
-    // MARK: - Score Alert
+    // Zeigt eine Alert-Box mit dem Endergebnis.
+    // Führt den Nutzer zurück zum Hauptmenü.
     func displayScoreAlert() {
         let alert = UIAlertController(
             title: "Quiz beendet",
@@ -220,7 +238,6 @@ class QuizViewController: BackgroundViewController {
         let dismissAction = UIAlertAction(title: "Zum Hauptmenü", style: .default) { _ in
             self.navigationController?.popToRootViewController(animated: true)
         }
-        
         alert.addAction(dismissAction)
         present(alert, animated: true)
     }
