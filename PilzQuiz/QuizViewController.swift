@@ -23,19 +23,19 @@ class QuizViewController: BackgroundViewController {
     @IBOutlet weak var answerButton3: UIButton!
     @IBOutlet weak var answerButton4: UIButton!
     // Array aller Antwort-Buttons für einfaches Styling und Zugriff
-    var answerButtonArray: [UIButton] = []
+    fileprivate var answerButtonArray: [UIButton] = []
     
     // Feste Liste aller Pilze
-    let fixedMushroomList: [Mushroom] = MushroomData.all
+    fileprivate let fixedMushroomList: [Mushroom] = MushroomData.all
     
     // Dynamisch generierte Fragenliste
-    var questions: [QuizQuestion] = []
+    fileprivate var questions: [QuizQuestion] = []
     
     // Aktuelle Position im Quiz
-    var currentIndex = 0
+    fileprivate var currentIndex = 0
     
     // Zähler für richtige Antworten
-    var correctAnswerCount = 0
+    fileprivate var correctAnswerCount = 0
     
     // Booleans für mögliche Fragetypen
     var askName = true
@@ -58,7 +58,7 @@ class QuizViewController: BackgroundViewController {
     }
     
     // Aktueller Fragetyp (wird bei jeder Frage gesetzt)
-    var currentQuestionType: QuestionType = .name
+    fileprivate var currentQuestionType: QuestionType = .name
     
     // MARK: - Funktionen
     override func viewDidLoad() {
@@ -75,7 +75,7 @@ class QuizViewController: BackgroundViewController {
     
     // Erstellt die Fragenliste basierend auf den gewählten Fragetypen.
     // Jeder Pilz erzeugt bis zu vier Fragen (eine pro Fragentyp).
-    func setupQuiz() {
+    fileprivate func setupQuiz() {
         questions = []
         
         for mushroom in fixedMushroomList {
@@ -101,7 +101,7 @@ class QuizViewController: BackgroundViewController {
     
     // Zeigt die aktuelle Frage und das passende Bild.
     // Setzt den Fragetext und ruft die Antwortlogik auf.
-    func updateUI() {
+    fileprivate func updateUI() {
         let question = questions[currentIndex]
         let mushroom = question.mushroom
         currentQuestionType = question.type
@@ -130,7 +130,7 @@ class QuizViewController: BackgroundViewController {
     
     // Erstellt vier Antwortmöglichkeiten (eine richtige, drei falsche).
     // Verhindert Duplikate und füllt bei Bedarf mit Platzhaltern.
-    func assignAnswers(for mushroom: Mushroom) {
+    fileprivate func assignAnswers(for mushroom: Mushroom) {
         
         // Richtige Antwort je nach Fragetyp
         let correctAnswer: String
@@ -208,7 +208,7 @@ class QuizViewController: BackgroundViewController {
     
     // Erhöht den Index und zeigt die nächste Frage.
     // Falls das Quiz zu Ende ist, wird das Ergebnis angezeigt.
-    func loadNextQuestion() {
+    fileprivate func loadNextQuestion() {
         currentIndex += 1
         
         // Wenn das Ende der Fragenliste erreicht ist, wird Meldung aufgerufen.
@@ -228,7 +228,7 @@ class QuizViewController: BackgroundViewController {
     
     // Zeigt eine Alert-Box mit dem Endergebnis.
     // Führt den Nutzer zurück zum Hauptmenü.
-    func displayScoreAlert() {
+    fileprivate func displayScoreAlert() {
         let alert = UIAlertController(
             title: "Quiz beendet",
             message: "Du hast \(correctAnswerCount) von \(questions.count) Fragen richtig beantwortet.",

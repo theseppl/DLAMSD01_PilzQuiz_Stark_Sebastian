@@ -23,15 +23,15 @@ class FlashCardViewController: BackgroundViewController {
     // MARK: - Variablen und Konstanten
     
     // Feste Liste aller Pilze
-    let fixedMushroomList: [Mushroom] = MushroomData.all
+    fileprivate let fixedMushroomList: [Mushroom] = MushroomData.all
     
     //Array als Variable um Zufallsgenerator zu ermöglichen
-    var variableMushroomList: [Mushroom] = []
+    fileprivate var variableMushroomList: [Mushroom] = []
     // Index des aktuell angezeigten Pilzes
-    var currentMushroomIndex = 0
+    fileprivate var currentMushroomIndex = 0
     
     // Aktueller Zustand der Karte (Frage oder Antwort)
-    var state: State = .question
+    fileprivate var state: State = .question
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
@@ -63,7 +63,7 @@ class FlashCardViewController: BackgroundViewController {
     
     //Startet eine neue Flash-Card-Session
     // Die Pilze werden gemischt, damit die Reihenfolge jedes Mal anders ist.
-    func setupFlashCards() {
+    fileprivate func setupFlashCards() {
         variableMushroomList = fixedMushroomList.shuffled()
         state = .question
         currentMushroomIndex = 0
@@ -71,7 +71,7 @@ class FlashCardViewController: BackgroundViewController {
     
     // Aktualisiert die gesamte Oberfläche basierend auf dem aktuellen Zustand.
     // Zeigt entweder nur das Bild (question) oder alle Infos (answer).
-    func updateUI() {
+    fileprivate func updateUI() {
         // Aktuellen Pilz holen
         let mushroom = variableMushroomList[currentMushroomIndex]
         let image = UIImage(named: mushroom.name)

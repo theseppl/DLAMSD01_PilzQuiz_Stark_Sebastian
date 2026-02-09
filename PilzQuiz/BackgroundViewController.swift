@@ -20,9 +20,9 @@ class BackgroundViewController: UIViewController {
         super.viewDidLoad()
         addBackgroundImage()
     }
-
+    
     // Fügt ein Hintergrundbild ein.
-    func addBackgroundImage() {
+    fileprivate func addBackgroundImage() {
         
         // Erstellt ein UIImageView, das den gesamten View‑Bereich abdeckt.
         let backgroundImage = UIImageView(frame: view.bounds)
@@ -30,10 +30,10 @@ class BackgroundViewController: UIViewController {
         backgroundImage.contentMode = .scaleAspectFill
         backgroundImage.clipsToBounds = true
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-
+        
         // Das Bild als unterstes Element einfügen
         view.insertSubview(backgroundImage, at: 0)
-
+        
         // Das Bild soll exakt an allen vier Seiten anliegen.
         NSLayoutConstraint.activate([
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
