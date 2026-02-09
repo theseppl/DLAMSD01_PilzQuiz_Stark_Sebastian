@@ -7,7 +7,11 @@
 
 import UIKit
 
+// Zentrale Struktur zum Stylen von UI-Komponenten.
+// Dient zur Sicherstellung eines einheitlichen Designs innerhalb der App.
 struct Style {
+    
+    // Styling der Button
     static func button(_ button: UIButton) {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center
@@ -18,6 +22,7 @@ struct Style {
         button.layer.shadowRadius = 6
     }
     
+    // Styling der Switches
     static func switches(_ mySwitch: UISwitch) {
         mySwitch.onTintColor = UIColor.systemGreen          // Farbe wenn AN
         mySwitch.tintColor = UIColor.systemBlue             // Randfarbe wenn AUS
@@ -26,6 +31,7 @@ struct Style {
         mySwitch.clipsToBounds = true
     }
     
+    // Styling der Bilder
     static func image(_ image: UIImageView) {
         image.layer.cornerRadius = 16
         image.clipsToBounds = true

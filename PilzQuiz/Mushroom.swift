@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Datenmodell für einen einzelnen Pilz.
 struct Mushroom {
     let name: String
     let genus: String
@@ -14,6 +15,7 @@ struct Mushroom {
     let toxicity: String
 }
 
+// Sammlung aller in der App verfügbaren Pilzdaten.
 struct MushroomData{
     static let all: [Mushroom] = [
         Mushroom(name: "Apfeltäubling", genus: "Täublinge", latinName: "Russula paludosa", toxicity: "Essbar 1 - sehr guter Speisepilz"),
