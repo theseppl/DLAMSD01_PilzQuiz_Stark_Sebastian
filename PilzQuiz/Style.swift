@@ -11,7 +11,7 @@ import UIKit
 // Dient zur Sicherstellung eines einheitlichen Designs innerhalb der App.
 struct Style {
     
-    // Styling der Button
+    // Styling der Buttons
     static func button(_ button: UIButton) {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center
