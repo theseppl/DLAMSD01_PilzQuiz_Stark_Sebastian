@@ -61,7 +61,7 @@ class FlashCardViewController: BackgroundViewController {
         updateUI()
     }
     
-    //Startet eine neue Flash-Card-Session
+    // Startet eine neue Flash-Card-Session
     // Die Pilze werden gemischt, damit die Reihenfolge jedes Mal anders ist.
     fileprivate func setupFlashCards() {
         variableMushroomList = fixedMushroomList.shuffled()
