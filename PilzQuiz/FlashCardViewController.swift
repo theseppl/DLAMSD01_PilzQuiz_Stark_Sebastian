@@ -13,9 +13,10 @@ import UIKit
  und kann dann die Lösung einblenden („answer“).
  Danach kann er zur nächsten Karte springen.
  */
+
 enum State {
     case question // Nur das Bild wird gezeigt
-    case answer // Bild + Name + Latein + Gattung + Essbarkeit
+    case answer // Bild + Name + Latein + Gattung + Essbarkeit werden gezeigt
 }
 
 class FlashCardViewController: BackgroundViewController {

@@ -129,7 +129,7 @@ class QuizViewController: BackgroundViewController {
     }
     
     // Erstellt vier Antwortmöglichkeiten (eine richtige, drei falsche).
-    // Verhindert Duplikate und füllt bei Bedarf mit Platzhaltern.
+    // Verhindert Duplikate.
     fileprivate func assignAnswers(for mushroom: Mushroom) {
         
         // Richtige Antwort je nach Fragetyp
