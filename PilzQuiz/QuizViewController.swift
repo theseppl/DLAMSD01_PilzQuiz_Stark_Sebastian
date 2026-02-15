@@ -110,7 +110,7 @@ class QuizViewController: BackgroundViewController {
         questionAnswerLabel.numberOfLines = 0
         switch question.type {
         case .name:
-            questionAnswerLabel.text = "Wie heißt diese Pilzesorte?"
+            questionAnswerLabel.text = "Wie heißt diese Pilzsorte?"
         case .latin:
             questionAnswerLabel.text = "Wissenschaftliche Bezeichnung des Pilzes?"
         case .genus:
